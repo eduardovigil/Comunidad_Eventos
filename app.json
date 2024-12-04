@@ -19,10 +19,30 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.eduardor.ComunidadeEventos"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "expo": {
+      "plugins": [
+        "@react-native-firebase/app",
+        "@react-native-firebase/auth",
+        [
+          "expo-build-properties",
+          {
+            "android": {
+              "usesCleartextTraffic": true
+            }
+          }
+        ]
+      ],
+      "android": {
+        "permissions": [
+          "ACCESS_NETWORK_STATE"
+        ]
+      }
     }
   }
 }
