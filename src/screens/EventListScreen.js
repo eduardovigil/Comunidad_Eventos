@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, FlatList, StyleSheet, RefreshControl, Alert } from 'react-native';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { View, Text, FlatList, StyleSheet, RefreshControl, TouchableOpacity } from 'react-native';
+import { collection, query, orderBy, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function EventListScreen({ navigation }) {
   const [events, setEvents] = useState([]);
@@ -10,13 +11,12 @@ export default function EventListScreen({ navigation }) {
   const fetchEvents = useCallback(async () => {
     try {
       const eventsCollection = collection(db, 'events');
-      const eventsQuery = query(eventsCollection, orderBy('createdAt', 'desc'));
+      const eventsQuery = query(eventsCollection, orderBy('date', 'asc'));
       const querySnapshot = await getDocs(eventsQuery);
       const eventList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setEvents(eventList);
     } catch (error) {
       console.error('Error al obtener eventos:', error);
-      Alert.alert('Error', 'No se pudieron cargar los eventos. Por favor, intenta de nuevo.');
     }
   }, []);
 
@@ -31,12 +31,17 @@ export default function EventListScreen({ navigation }) {
   }, [fetchEvents]);
 
   const renderEventItem = ({ item }) => (
-    <View style={styles.eventItem}>
-      <Text style={styles.eventTitle}>{item.title}</Text>
-      <Text>{item.date}</Text>
-      <Text>{item.location}</Text>
-      <Text>{item.description}</Text>
-    </View>
+    <TouchableOpacity
+      style={styles.eventItem}
+      onPress={() => navigation.navigate('EventDetails', { eventId: item.id })}
+    >
+      <View style={styles.eventHeader}>
+        <Text style={styles.eventTitle}>{item.title}</Text>
+        <Ionicons name="chevron-forward" size={24} color="#4A5568" />
+      </View>
+      <Text style={styles.eventDate}>{item.date}</Text>
+      <Text style={styles.eventLocation}>{item.location}</Text>
+    </TouchableOpacity>
   );
 
   return (
@@ -54,6 +59,12 @@ export default function EventListScreen({ navigation }) {
       ) : (
         <Text style={styles.noEventsText}>No hay eventos disponibles.</Text>
       )}
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => navigation.navigate('CreateEvent')}
+      >
+        <Ionicons name="add" size={24} color="white" />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -61,27 +72,59 @@ export default function EventListScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: 20,
+    backgroundColor: '#F7FAFC',
   },
   title: {
     fontSize: 24,
-    marginBottom: 16,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#2D3748',
   },
   eventItem: {
-    backgroundColor: '#f0f0f0',
-    padding: 16,
-    marginBottom: 8,
-    borderRadius: 8,
+    backgroundColor: '#EDF2F7',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  eventHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   eventTitle: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#2D3748',
+  },
+  eventDate: {
+    fontSize: 14,
+    color: '#4A5568',
+    marginTop: 5,
+  },
+  eventLocation: {
+    fontSize: 14,
+    color: '#718096',
+    marginTop: 5,
   },
   noEventsText: {
     textAlign: 'center',
     marginTop: 20,
     fontSize: 16,
-    color: 'gray',
+    color: '#A0AEC0',
+    fontStyle: 'italic',
+  },
+  addButton: {
+    position: 'absolute',
+    right: 20,
+    bottom: 20,
+    backgroundColor: '#4299E1',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 5,
   },
 });
 
