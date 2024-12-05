@@ -5,9 +5,9 @@
 *Para poder usar esta aplicacion es necesario contar con visual studio code, cuenta en google para firebase y tener conocimiento de React y React-native*
 
 ## Herramientas
-* [Visual Studio Code] (https://code.visualstudio.com/) - Compilador de codigo
-* [Firebase] (https://firebase.google.com/) - RealTime Database para el almacenamiento de datos
-* [Expo Go] (https://expo.dev/go) - Expo Go para poder probar la aplicacion{
+* [Visual Studio Code](https://code.visualstudio.com/) - Compilador de codigo
+* [Firebase](https://firebase.google.com/) - RealTime Database para el almacenamiento de datos
+* [Expo Go](https://expo.dev/go) - Expo Go para poder probar la aplicacion{
 
 ## Guia de instalacion
 Antes de comenzar, asegurese de tener instaldo:
@@ -20,7 +20,7 @@ Antes de comenzar, asegurese de tener instaldo:
 3. Crear una rama de colaboración para poder agregar los cambios realizados a Github.
 4. Una vez este conectado al repositorio y haya creado su rama, puede comenzar a colaborar desde su equipo local, para lo que será necesario abrir el proyecto desde su Visual Studio Code.
 5. Realice las modificaciones necesarias y ejecute los comandos: git add -A para agregar los cambios, git commit -m "comentario" y finalmente git push -u origin SuRama para agregar los cambios al repositorio remoto.
-6. Realice el comando de npm install para descargar todas las dependencias del proyecto.
+6. Realice el comando de npm install para descargar todas las dependencias del proyecto y el comando npx expo start para comenzar la ejecucion de la aplicacion.
 
 ## Autores
 
