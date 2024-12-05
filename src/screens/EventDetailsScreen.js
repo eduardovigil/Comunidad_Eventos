@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, Share } from 'react-native';
 import { doc, getDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { Ionicons } from '@expo/vector-icons';
@@ -51,6 +51,25 @@ export default function EventDetailsScreen({ route, navigation }) {
     );
   };
 
+  const handleShare = async () => {
+    try {
+      const result = await Share.share({
+        message: `¡Ven conmigo al evento "${event.title}"! Fecha: ${new Date(event.date).toLocaleDateString()}, Lugar: ${event.location}`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log('Shared with activity type of', result.activityType);
+        } else {
+          console.log('Shared');
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log('Dismissed');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'No se pudo compartir el evento');
+    }
+  };
+
   if (!event) {
     return (
       <View style={styles.container}>
@@ -74,6 +93,10 @@ export default function EventDetailsScreen({ route, navigation }) {
       <TouchableOpacity style={styles.deleteButton} onPress={handleDeleteEvent}>
         <Ionicons name="trash-outline" size={24} color="white" />
         <Text style={styles.deleteButtonText}>Eliminar Evento</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.shareButton} onPress={handleShare}>
+        <Ionicons name="share-outline" size={24} color="white" />
+        <Text style={styles.shareButtonText}>Compartir Evento</Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -117,6 +140,21 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   deleteButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginLeft: 10,
+  },
+  shareButton: {
+    backgroundColor: '#9F7AEA',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 20,
+  },
+  shareButtonText: {
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',

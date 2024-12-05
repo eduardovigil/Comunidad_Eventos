@@ -25,6 +25,7 @@ export default function CreateEventScreen({ navigation }) {
         location,
         description,
         createdAt: new Date().toISOString(),
+        attendees: [], // Initialize empty attendees array
       });
       console.log('Evento creado con ID: ', docRef.id);
       Alert.alert('Éxito', 'Evento creado correctamente', [

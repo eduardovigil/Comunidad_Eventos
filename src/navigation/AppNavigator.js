@@ -10,6 +10,8 @@ import HomeScreen from '../screens/HomeScreen';
 import EventListScreen from '../screens/EventListScreen';
 import CreateEventScreen from '../screens/CreateEventScreen';
 import EventDetailsScreen from '../screens/EventDetailsScreen';
+import EventHistoryScreen from '../screens/EventHistoryScreen';
+import UserStatsScreen from '../screens/UserStatsScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -36,6 +38,10 @@ function MainTabs() {
             iconName = focused ? 'list' : 'list-outline';
           } else if (route.name === 'CreateEvent') {
             iconName = focused ? 'add-circle' : 'add-circle-outline';
+          } else if (route.name === 'EventHistory') {
+            iconName = focused ? 'time' : 'time-outline';
+          } else if (route.name === 'UserStats') {
+            iconName = focused ? 'stats-chart' : 'stats-chart-outline';
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -45,6 +51,8 @@ function MainTabs() {
       <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Inicio' }} />
       <Tab.Screen name="EventList" component={EventListScreen} options={{ title: 'Eventos' }} />
       <Tab.Screen name="CreateEvent" component={CreateEventScreen} options={{ title: 'Crear Evento' }} />
+      <Tab.Screen name="EventHistory" component={EventHistoryScreen} options={{ title: 'Historial' }} />
+      <Tab.Screen name="UserStats" component={UserStatsScreen} options={{ title: 'Estadísticas' }} />
     </Tab.Navigator>
   );
 }

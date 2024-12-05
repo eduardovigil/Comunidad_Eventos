@@ -12,6 +12,12 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -22,27 +28,42 @@
       },
       "package": "com.eduardor.ComunidadeEventos"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "expo": {
-      "plugins": [
-        "@react-native-firebase/app",
-        "@react-native-firebase/auth",
-        [
-          "expo-build-properties",
-          {
-            "android": {
-              "usesCleartextTraffic": true
-            }
-          }
-        ]
-      ],
-      "android": {
-        "permissions": [
-          "ACCESS_NETWORK_STATE"
-        ]
+    "permissions": [
+      "NOTIFICATIONS"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "3c245f39-9775-424b-9766-cef1a256b08e"
       }
     }
+  },
+  "web": {
+    "favicon": "./assets/favicon.png"
+  },
+  "plugins": [
+    "@react-native-firebase/app",
+    "@react-native-firebase/auth",
+    [
+      "expo-build-properties",
+      {
+        "android": {
+          "usesCleartextTraffic": true
+        }
+      },
+      "expo-notifications",
+      {
+        "icon": "./local/path/to/myNotificationIcon.png",
+        "color": "#ffffff",
+        "sounds": [
+          "./local/path/to/mySound.wav",
+          "./local/path/to/myOtherSound.wav"
+        ]
+      }
+    ]
+  ],
+  "android": {
+    "permissions": [
+      "ACCESS_NETWORK_STATE"
+    ]
   }
 }
