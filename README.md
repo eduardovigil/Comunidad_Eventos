@@ -5,9 +5,9 @@
 *Para poder usar esta aplicacion es necesario contar con visual studio code, cuenta en google para firebase y tener conocimiento de React y React-native*
 
 ## Herramientas
-[Visual Studio Code] (https://code.visualstudio.com/) - Compilador de codigo
-[Firebase] (https://firebase.google.com/) - RealTime Database para el almacenamiento de datos
-[Expo Go] (https://expo.dev/go) - Expo Go para poder probar la aplicacion{
+* [Visual Studio Code] (https://code.visualstudio.com/) - Compilador de codigo
+* [Firebase] (https://firebase.google.com/) - RealTime Database para el almacenamiento de datos
+* [Expo Go] (https://expo.dev/go) - Expo Go para poder probar la aplicacion{
 
 ## Guia de instalacion
 Antes de comenzar, asegurese de tener instaldo:
@@ -36,4 +36,4 @@ Usted es libre de: Compartir — copiar y redistribuir el material en cualquier 
 
 * [Tablero Trello ](https://trello.com/b/7RYpwpg9/catedra-dps)
 * [Mockups](https://drive.google.com/drive/folders/14FxqYnTHI4RgBdzcStZNRfCNbm24WZ0U?usp=sharing)
-* 
+* Video de youtube
