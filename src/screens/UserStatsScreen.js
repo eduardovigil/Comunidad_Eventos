@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { db, auth } from '../../firebase';
 
 export default function UserStatsScreen() {
@@ -25,12 +25,15 @@ export default function UserStatsScreen() {
       const pastEventsQuery = query(
         eventsRef,
         where('attendees', 'array-contains', userId),
-        where('date', '<', now)
+        where('status', '==', 'finished'),
+        orderBy('date', 'desc')
       );
       const upcomingEventsQuery = query(
         eventsRef,
         where('attendees', 'array-contains', userId),
-        where('date', '>=', now)
+        where('status', '!=', 'finished'),
+        where('date', '>=', now),
+        orderBy('date', 'asc')
       );
 
       const [pastEventsSnapshot, upcomingEventsSnapshot] = await Promise.all([
@@ -44,15 +47,15 @@ export default function UserStatsScreen() {
       let totalRating = 0;
       let totalComments = 0;
 
-      pastEvents.forEach(doc => {
+      for (const doc of pastEvents) {
         const eventData = doc.data();
-        if (eventData.comments) {
-          totalComments += eventData.comments.length;
-          totalRating += eventData.comments.reduce((sum, comment) => sum + comment.rating, 0);
-        }
-      });
+        const commentsSnapshot = await getDocs(collection(db, 'events', doc.id, 'comments'));
+        const comments = commentsSnapshot.docs;
+        totalComments += comments.length;
+        totalRating += comments.reduce((sum, comment) => sum + comment.data().rating, 0);
+      }
 
-      const averageRating = totalRating / totalComments || 0;
+      const averageRating = totalComments > 0 ? totalRating / totalComments : 0;
 
       setStats({
         totalEvents: pastEvents.length + upcomingEvents.length,

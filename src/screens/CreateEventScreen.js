@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db, auth } from '../../firebase';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -25,7 +25,10 @@ export default function CreateEventScreen({ navigation }) {
         location,
         description,
         createdAt: new Date().toISOString(),
-        attendees: [], // Initialize empty attendees array
+        createdBy: auth.currentUser.uid,
+        attendees: [],
+        comments: [],
+        status: 'active'
       });
       console.log('Evento creado con ID: ', docRef.id);
       Alert.alert('Éxito', 'Evento creado correctamente', [
