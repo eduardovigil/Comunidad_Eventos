@@ -36,4 +36,4 @@ Usted es libre de: Compartir — copiar y redistribuir el material en cualquier 
 
 * [Tablero Trello ](https://trello.com/b/7RYpwpg9/catedra-dps)
 * [Mockups](https://drive.google.com/drive/folders/14FxqYnTHI4RgBdzcStZNRfCNbm24WZ0U?usp=sharing)
-* Video de youtube
+* [Video de youtube ](https://youtu.be/gps9A6uVMas)
